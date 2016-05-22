@@ -66,4 +66,20 @@ public class Sprite {
 	public String toString() {
 		return " Position: [" + positionX + "," + positionY + "]" + " Velocity: [" + velocityX + "," + velocityY + "]";
 	}
+
+	public double getPositionX() {
+		return positionX;
+	}
+
+	public void setPositionX(double positionX) {
+		this.positionX = positionX;
+	}
+
+	public double getPositionY() {
+		return positionY;
+	}
+
+	public void setPositionY(double positionY) {
+		this.positionY = positionY;
+	}
 }

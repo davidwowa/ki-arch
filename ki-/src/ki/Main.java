@@ -2,7 +2,6 @@ package ki;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -12,9 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -61,26 +57,11 @@ public class Main extends Application {
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		Font theFont = Font.font("Helvetica", FontWeight.BOLD, 24);
-		gc.setFont(theFont);
-		gc.setFill(Color.GREEN);
-		gc.setStroke(Color.BLACK);
-		gc.setLineWidth(1);
-
 		Sprite smiley = new Sprite();
 		smiley.setImage("/ki/pic/smiley.png");
 		smiley.setPosition(50, 50);
 
 		ArrayList<Sprite> wallList = new ArrayList<Sprite>();
-
-		// for (int i = 0; i < 15; i++) {
-		// Sprite moneybag = new Sprite();
-		// moneybag.setImage("/ki/moneybag.png");
-		// double px = 942 * Math.random() + 50;
-		// double py = 942 * Math.random() + 50;
-		// moneybag.setPosition(px, py);
-		// wallList.add(moneybag);
-		// }
 
 		// horizontal walls
 		int countX = -32;
@@ -148,12 +129,10 @@ public class Main extends Application {
 
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 
-		// IntValue score = new IntValue(0);
-
 		new AnimationTimer() {
 			public void handle(long currentNanoTime) {
 				// calculate time since last update.
-				double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
+				double elapsedTime = (currentNanoTime - lastNanoTime.value) / 100000000.0;
 				lastNanoTime.value = currentNanoTime;
 
 				// game logic
@@ -168,71 +147,84 @@ public class Main extends Application {
 				// if (input.contains("DOWN"))
 				// smiley.addVelocity(0, 50);
 
-				Random random = new Random();
-
 				smiley.setVelocity(0, 0);
-				int x = random.nextInt(50);
-				int y = random.nextInt(50);
-
-				if (smiley.getBoundary().getMaxX() < 972 && smiley.getBoundary().getMaxY() < 972) {
-					smiley.addVelocity(x, y);
-					smiley.update(elapsedTime);
-				}
+				smiley.addVelocity(50, 0);
+				smiley.update(elapsedTime);
 
 				// collision detection
+				boolean left = false, right = false, up = false, down = false;
 
-				Iterator<Sprite> wallListIter = wallList.iterator();
-				while (wallListIter.hasNext()) {
-					Sprite currentWall = wallListIter.next();
-					if (smiley.intersects(currentWall)) {
+				Sprite ghost = new Sprite();
+				ghost.setImage("/ki/pic/smiley2.png");
+				ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
 
-						if (smiley.getBoundary().getMaxX() < 972 && smiley.getBoundary().getMaxY() < 972) {
-							if (smiley.getBoundary().getMaxX() > 940) {
-								smiley.addVelocity((-1.) * x, y);
-								smiley.update(elapsedTime);
-							} else if (smiley.getBoundary().getMaxY() > 940) {
-								smiley.addVelocity(x, (-1.) * y);
-								smiley.update(elapsedTime);
-							} else if (smiley.getBoundary().getMaxY() > 940 && smiley.getBoundary().getMaxX() > 940) {
-								smiley.addVelocity((-1.) * x, (-1.) * y);
-								smiley.update(elapsedTime);
-							} else {
-								smiley.addVelocity(x, y);
-								smiley.update(elapsedTime);
-							}
-						}
-						// moneybagIter.remove();
-						// score.value++;
+				// show left
+				ghost.addVelocity(-50, 0);
+				ghost.update(elapsedTime);
+				Iterator<Sprite> wallListIterLeft = wallList.iterator();
+				while (wallListIterLeft.hasNext()) {
+					Sprite currentWallLeft = wallListIterLeft.next();
+					if (ghost.intersects(currentWallLeft)) {
+						left = true;
 					}
 				}
 
-				// Iterator<Sprite> moneybagIter = wallList.iterator();
-				// while (moneybagIter.hasNext()) {
-				// Sprite moneybag = moneybagIter.next();
-				// if (smiley.intersects(moneybag)) {
-				//
-				// smiley.addVelocity(random.nextInt(50),
-				// random.nextInt(50));
-				//
-				//// moneybagIter.remove();
-				//// score.value++;
-				// }
-				// }
+				// show right
+				ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
+				ghost.addVelocity(50, 0);
+				ghost.update(elapsedTime);
+				Iterator<Sprite> wallListIterRight = wallList.iterator();
+				while (wallListIterRight.hasNext()) {
+					Sprite currentWallRight = wallListIterRight.next();
+					if (ghost.intersects(currentWallRight)) {
+						right = true;
+					}
+				}
+
+				// show up
+				ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
+				ghost.addVelocity(0, -50);
+				ghost.update(elapsedTime);
+				Iterator<Sprite> wallListIterUp = wallList.iterator();
+				while (wallListIterUp.hasNext()) {
+					Sprite currentWallUp = wallListIterUp.next();
+					if (ghost.intersects(currentWallUp)) {
+						up = true;
+					}
+				}
+
+				// show down
+				ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
+				ghost.addVelocity(0, 50);
+				ghost.update(elapsedTime);
+				Iterator<Sprite> wallListIterDown = wallList.iterator();
+				while (wallListIterDown.hasNext()) {
+					Sprite currentWallDown = wallListIterDown.next();
+					if (ghost.intersects(currentWallDown)) {
+						down = true;
+					}
+				}
+
+				if (left) {
+					smiley.addVelocity(-50, 0);
+				} else if (right) {
+					smiley.addVelocity(50, 0);
+				} else if (up) {
+					smiley.addVelocity(0, -50);
+				} else if (down) {
+					smiley.addVelocity(0, 50);
+				}
+
+				smiley.update(elapsedTime);
 
 				// render
-
 				gc.clearRect(0, 0, X, Y);
 				smiley.render(gc);
 
-				for (Sprite moneybag : wallList)
-					moneybag.render(gc);
-
-				// String pointsText = "Cash: $" + (100 * score.value);
-				// gc.fillText(pointsText, 360, 36);
-				// gc.strokeText(pointsText, 360, 36);
+				for (Sprite currentObj : wallList)
+					currentObj.render(gc);
 			}
 		}.start();
-
 		theStage.show();
 	}
 }
