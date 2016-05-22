@@ -17,6 +17,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @see https://github.com/tutsplus/Introduction-to-JavaFX-for-Game-Development
+ *
+ */
 public class Main extends Application {
 
 	private int X = 1024;
@@ -63,7 +68,7 @@ public class Main extends Application {
 		gc.setLineWidth(1);
 
 		Sprite smiley = new Sprite();
-		smiley.setImage("/ki/smiley.png");
+		smiley.setImage("/ki/pic/smiley.png");
 		smiley.setPosition(50, 50);
 
 		ArrayList<Sprite> wallList = new ArrayList<Sprite>();
@@ -81,14 +86,14 @@ public class Main extends Application {
 		int countX = -32;
 		while (countX < X) {
 			Sprite wall = new Sprite();
-			wall.setImage("/ki/wall.png");
+			wall.setImage("/ki/pic/wall.png");
 			countX = countX + 32;
 			double px = countX;
 			wall.setPosition(px, -32);
 			wallList.add(wall);
 
 			Sprite wall2 = new Sprite();
-			wall2.setImage("/ki/wall.png");
+			wall2.setImage("/ki/pic/wall.png");
 			wall2.setPosition(px, 992);
 			wallList.add(wall2);
 		}
@@ -97,14 +102,14 @@ public class Main extends Application {
 		int countY = -32;
 		while (countY < Y) {
 			Sprite wall = new Sprite();
-			wall.setImage("/ki/wall.png");
+			wall.setImage("/ki/pic/wall.png");
 			countY = countY + 32;
 			double py = countY;
 			wall.setPosition(-32, py);
 			wallList.add(wall);
 
 			Sprite wall2 = new Sprite();
-			wall2.setImage("/ki/wall.png");
+			wall2.setImage("/ki/pic/wall.png");
 			wall2.setPosition(992, py);
 			wallList.add(wall2);
 		}
@@ -113,14 +118,14 @@ public class Main extends Application {
 		int countXX = 96;
 		while (countXX < (X - 192)) {
 			Sprite wall = new Sprite();
-			wall.setImage("/ki/wall.png");
+			wall.setImage("/ki/pic/wall.png");
 			countXX = countXX + 32;
 			double px = countXX;
 			wall.setPosition(px, 128);
 			wallList.add(wall);
 
 			Sprite wall2 = new Sprite();
-			wall2.setImage("/ki/wall.png");
+			wall2.setImage("/ki/pic/wall.png");
 			wall2.setPosition(px, 864);
 			wallList.add(wall2);
 		}
@@ -129,21 +134,21 @@ public class Main extends Application {
 		int countYY = 100;
 		while (countYY < (Y - 192)) {
 			Sprite wall = new Sprite();
-			wall.setImage("/ki/wall.png");
+			wall.setImage("/ki/pic/wall.png");
 			countYY = countYY + 32;
 			double py = countYY;
 			wall.setPosition(128, py);
 			wallList.add(wall);
 
 			Sprite wall2 = new Sprite();
-			wall2.setImage("/ki/wall.png");
+			wall2.setImage("/ki/pic/wall.png");
 			wall2.setPosition(832, py);
 			wallList.add(wall2);
 		}
 
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 
-		IntValue score = new IntValue(0);
+		// IntValue score = new IntValue(0);
 
 		new AnimationTimer() {
 			public void handle(long currentNanoTime) {
@@ -182,11 +187,17 @@ public class Main extends Application {
 					if (smiley.intersects(currentWall)) {
 
 						if (smiley.getBoundary().getMaxX() < 972 && smiley.getBoundary().getMaxY() < 972) {
-							if (smiley.getBoundary().getMaxX() > 900) {
+							if (smiley.getBoundary().getMaxX() > 940) {
 								smiley.addVelocity((-1.) * x, y);
 								smiley.update(elapsedTime);
-							} else if (smiley.getBoundary().getMaxY() > 900) {
+							} else if (smiley.getBoundary().getMaxY() > 940) {
 								smiley.addVelocity(x, (-1.) * y);
+								smiley.update(elapsedTime);
+							} else if (smiley.getBoundary().getMaxY() > 940 && smiley.getBoundary().getMaxX() > 940) {
+								smiley.addVelocity((-1.) * x, (-1.) * y);
+								smiley.update(elapsedTime);
+							} else {
+								smiley.addVelocity(x, y);
 								smiley.update(elapsedTime);
 							}
 						}
