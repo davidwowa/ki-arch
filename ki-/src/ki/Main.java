@@ -163,20 +163,30 @@ public class Main extends Application {
 						ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
 						// set velocity back from smiley
 
-						switch (lastMovement) {
-						case DOWN:
-							movement = Movement.LEFT;
-							break;
-						case LEFT:
-							movement = Movement.UP;
-							break;
-						case RIGHT:
-							movement = Movement.DOWN;
-							break;
-						case UP:
-							movement = Movement.RIGHT;
-							break;
-						}
+//						if (right == false) {
+//							movement = Movement.RIGHT;
+//						} else if (left == false) {
+//							movement = Movement.LEFT;
+//						} else if (down == false) {
+//							movement = Movement.DOWN;
+//						} else if (up == false) {
+//							movement = Movement.UP;
+//						}
+
+						 switch (lastMovement) {
+						 case DOWN:
+						 movement = Movement.LEFT;
+						 break;
+						 case LEFT:
+						 movement = Movement.UP;
+						 break;
+						 case RIGHT:
+						 movement = Movement.DOWN;
+						 break;
+						 case UP:
+						 movement = Movement.RIGHT;
+						 break;
+						 }
 					}
 				}
 
