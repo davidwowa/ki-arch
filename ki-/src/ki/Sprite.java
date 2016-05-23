@@ -46,6 +46,23 @@ public class Sprite {
 		velocityY += y;
 	}
 
+	public void setTrend(Movement movement) {
+		switch (movement) {
+		case DOWN:
+			addVelocity(0, 50);
+			break;
+		case LEFT:
+			addVelocity(-50, 0);
+			break;
+		case RIGHT:
+			addVelocity(50, 0);
+			break;
+		case UP:
+			addVelocity(0, -50);
+			break;
+		}
+	}
+
 	public void update(double time) {
 		positionX += velocityX * time;
 		positionY += velocityY * time;

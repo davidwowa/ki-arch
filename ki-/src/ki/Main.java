@@ -2,6 +2,7 @@ package ki;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -61,8 +62,143 @@ public class Main extends Application {
 		smiley.setImage("/ki/pic/smiley.png");
 		smiley.setPosition(50, 50);
 
+		Sprite ghost = new Sprite();
+		ghost.setImage("/ki/pic/smiley2.png");
+		ghost.setPosition(50, 50);
+
 		ArrayList<Sprite> wallList = new ArrayList<Sprite>();
 
+		createWorldQuadratic(wallList);
+
+		LongValue lastNanoTime = new LongValue(System.nanoTime());
+
+		new AnimationTimer() {
+
+			private Movement movement = Movement.DOWN;
+			private Movement lastMovement = Movement.DOWN;
+
+			public void handle(long currentNanoTime) {
+				// calculate time since last update.
+				double elapsedTime = (currentNanoTime - lastNanoTime.value) / 100000000.0;
+				lastNanoTime.value = currentNanoTime;
+
+				// game logic
+				smiley.setVelocity(0, 0);
+				smiley.setTrend(movement);
+				smiley.update(elapsedTime);
+
+				ghost.setVelocity(0, 0);
+				ghost.setTrend(movement);
+				ghost.update(elapsedTime);
+
+				lastMovement = movement;
+
+				// collision detection
+				String pointsText = "";
+				Iterator<Sprite> wallListIter = wallList.iterator();
+				while (wallListIter.hasNext()) {
+					Sprite currentWall = wallListIter.next();
+					if (smiley.intersects(currentWall)) {
+						pointsText = "smiley wall found!";
+
+						boolean down = false, up = false, left = false, right = false;
+
+						// show down
+						ghost.setTrend(Movement.DOWN);
+						ghost.update(elapsedTime);
+						ghost.render(gc);
+						Iterator<Sprite> wallListIterGhostDown = wallList.iterator();
+						while (wallListIterGhostDown.hasNext()) {
+							Sprite currentWallGhostDown = wallListIterGhostDown.next();
+							if (ghost.intersects(currentWallGhostDown)) {
+								pointsText = "ghost wall found!";
+								down = true;
+							}
+						}
+						ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
+						// set velocity back from smiley
+
+						// show up
+						ghost.setTrend(Movement.UP);
+						ghost.update(elapsedTime);
+						ghost.render(gc);
+						Iterator<Sprite> wallListIterGhostUp = wallList.iterator();
+						while (wallListIterGhostUp.hasNext()) {
+							Sprite currentWallGhostUp = wallListIterGhostUp.next();
+							if (ghost.intersects(currentWallGhostUp)) {
+								pointsText = "ghost wall found!";
+								up = true;
+							}
+						}
+						ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
+						// set velocity back from smiley
+
+						// show right
+						ghost.setTrend(Movement.RIGHT);
+						ghost.update(elapsedTime);
+						ghost.render(gc);
+						Iterator<Sprite> wallListIterGhostRight = wallList.iterator();
+						while (wallListIterGhostRight.hasNext()) {
+							Sprite currentWallGhostRight = wallListIterGhostRight.next();
+							if (ghost.intersects(currentWallGhostRight)) {
+								pointsText = "ghost wall found!";
+								right = true;
+							}
+						}
+						ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
+						// set velocity back from smiley
+
+						// show left
+						ghost.setTrend(Movement.LEFT);
+						ghost.update(elapsedTime);
+						ghost.render(gc);
+						Iterator<Sprite> wallListIterGhostLeft = wallList.iterator();
+						while (wallListIterGhostLeft.hasNext()) {
+							Sprite currentWallGhostLeft = wallListIterGhostLeft.next();
+							if (ghost.intersects(currentWallGhostLeft)) {
+								pointsText = "ghost wall found!";
+								left = true;
+							}
+						}
+						ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
+						// set velocity back from smiley
+
+						switch (lastMovement) {
+						case DOWN:
+							movement = Movement.LEFT;
+							break;
+						case LEFT:
+							movement = Movement.UP;
+							break;
+						case RIGHT:
+							movement = Movement.DOWN;
+							break;
+						case UP:
+							movement = Movement.RIGHT;
+							break;
+						}
+					}
+				}
+
+				smiley.update(elapsedTime);
+				ghost.update(elapsedTime);
+
+				// render
+				gc.clearRect(0, 0, X, Y);
+				smiley.render(gc);
+				ghost.render(gc);
+
+				gc.fillText(pointsText, 360, 200);
+				gc.strokeText(pointsText, 360, 200);
+
+				for (Sprite currentObj : wallList)
+					currentObj.render(gc);
+			}
+		}.start();
+		theStage.show();
+	}
+
+	private void createWorldQuadratic(ArrayList<Sprite> wallList) {
 		// horizontal walls
 		int countX = -32;
 		while (countX < X) {
@@ -126,105 +262,5 @@ public class Main extends Application {
 			wall2.setPosition(832, py);
 			wallList.add(wall2);
 		}
-
-		LongValue lastNanoTime = new LongValue(System.nanoTime());
-
-		new AnimationTimer() {
-			public void handle(long currentNanoTime) {
-				// calculate time since last update.
-				double elapsedTime = (currentNanoTime - lastNanoTime.value) / 100000000.0;
-				lastNanoTime.value = currentNanoTime;
-
-				// game logic
-
-				// smiley.setVelocity(0, 0);
-				// if (input.contains("LEFT"))
-				// smiley.addVelocity(-50, 0);
-				// if (input.contains("RIGHT"))
-				// smiley.addVelocity(50, 0);
-				// if (input.contains("UP"))
-				// smiley.addVelocity(0, -50);
-				// if (input.contains("DOWN"))
-				// smiley.addVelocity(0, 50);
-
-				smiley.setVelocity(0, 0);
-				smiley.addVelocity(50, 0);
-				smiley.update(elapsedTime);
-
-				// collision detection
-				boolean left = false, right = false, up = false, down = false;
-
-				Sprite ghost = new Sprite();
-				ghost.setImage("/ki/pic/smiley2.png");
-				ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
-
-				// show left
-				ghost.addVelocity(-50, 0);
-				ghost.update(elapsedTime);
-				Iterator<Sprite> wallListIterLeft = wallList.iterator();
-				while (wallListIterLeft.hasNext()) {
-					Sprite currentWallLeft = wallListIterLeft.next();
-					if (ghost.intersects(currentWallLeft)) {
-						left = true;
-					}
-				}
-
-				// show right
-				ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
-				ghost.addVelocity(50, 0);
-				ghost.update(elapsedTime);
-				Iterator<Sprite> wallListIterRight = wallList.iterator();
-				while (wallListIterRight.hasNext()) {
-					Sprite currentWallRight = wallListIterRight.next();
-					if (ghost.intersects(currentWallRight)) {
-						right = true;
-					}
-				}
-
-				// show up
-				ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
-				ghost.addVelocity(0, -50);
-				ghost.update(elapsedTime);
-				Iterator<Sprite> wallListIterUp = wallList.iterator();
-				while (wallListIterUp.hasNext()) {
-					Sprite currentWallUp = wallListIterUp.next();
-					if (ghost.intersects(currentWallUp)) {
-						up = true;
-					}
-				}
-
-				// show down
-				ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
-				ghost.addVelocity(0, 50);
-				ghost.update(elapsedTime);
-				Iterator<Sprite> wallListIterDown = wallList.iterator();
-				while (wallListIterDown.hasNext()) {
-					Sprite currentWallDown = wallListIterDown.next();
-					if (ghost.intersects(currentWallDown)) {
-						down = true;
-					}
-				}
-
-				if (left) {
-					smiley.addVelocity(-50, 0);
-				} else if (right) {
-					smiley.addVelocity(50, 0);
-				} else if (up) {
-					smiley.addVelocity(0, -50);
-				} else if (down) {
-					smiley.addVelocity(0, 50);
-				}
-
-				smiley.update(elapsedTime);
-
-				// render
-				gc.clearRect(0, 0, X, Y);
-				smiley.render(gc);
-
-				for (Sprite currentObj : wallList)
-					currentObj.render(gc);
-			}
-		}.start();
-		theStage.show();
 	}
 }
