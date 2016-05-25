@@ -1,5 +1,0 @@
-WARNING - 00:34:48: First conversion pass
-ERROR - 00:34:48: java.net.MalformedURLException: unknown protocol: pathmap
-WARNING - 00:34:52: Convert ki
-WARNING - 00:34:52: First conversion pass
-ERROR - 00:34:52: java.net.MalformedURLException: unknown protocol: pathmap
