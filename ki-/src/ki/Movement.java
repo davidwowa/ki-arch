@@ -1,5 +1,5 @@
 package ki;
 
 public enum Movement {
-	LEFT, RIGHT, UP, DOWN;
+	LEFT, RIGHT, UP, DOWN, STOP;
 }

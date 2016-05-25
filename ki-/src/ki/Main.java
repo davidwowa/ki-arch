@@ -2,7 +2,6 @@ package ki;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -62,9 +61,21 @@ public class Main extends Application {
 		smiley.setImage("/ki/pic/smiley.png");
 		smiley.setPosition(50, 50);
 
-		Sprite ghost = new Sprite();
-		ghost.setImage("/ki/pic/smiley2.png");
-		ghost.setPosition(50, 50);
+		Sprite RL = new Sprite();
+		RL.setImage("/ki/pic/smiley2.png");
+		RL.setPosition(50 - 32, 50);
+
+		Sprite RR = new Sprite();
+		RR.setImage("/ki/pic/smiley2.png");
+		RR.setPosition(50 + 32, 50);
+
+		Sprite RD = new Sprite();
+		RD.setImage("/ki/pic/smiley2.png");
+		RD.setPosition(50, 50 - 32);
+
+		Sprite RU = new Sprite();
+		RU.setImage("/ki/pic/smiley2.png");
+		RU.setPosition(50, 50 + 32);
 
 		ArrayList<Sprite> wallList = new ArrayList<Sprite>();
 
@@ -75,7 +86,6 @@ public class Main extends Application {
 		new AnimationTimer() {
 
 			private Movement movement = Movement.DOWN;
-			private Movement lastMovement = Movement.DOWN;
 
 			public void handle(long currentNanoTime) {
 				// calculate time since last update.
@@ -87,122 +97,74 @@ public class Main extends Application {
 				smiley.setTrend(movement);
 				smiley.update(elapsedTime);
 
-				ghost.setVelocity(0, 0);
-				ghost.setTrend(movement);
-				ghost.update(elapsedTime);
+				RL.setVelocity(0, 0);
+				RL.setTrend(movement);
+				RL.update(elapsedTime);
 
-				lastMovement = movement;
+				RR.setVelocity(0, 0);
+				RR.setTrend(movement);
+				RR.update(elapsedTime);
+
+				RD.setVelocity(0, 0);
+				RD.setTrend(movement);
+				RD.update(elapsedTime);
+
+				RU.setVelocity(0, 0);
+				RU.setTrend(movement);
+				RU.update(elapsedTime);
 
 				// collision detection
 				String pointsText = "";
+
+				// show down
 				Iterator<Sprite> wallListIter = wallList.iterator();
 				while (wallListIter.hasNext()) {
 					Sprite currentWall = wallListIter.next();
-					if (smiley.intersects(currentWall)) {
-						pointsText = "smiley wall found!";
 
-						boolean down = false, up = false, left = false, right = false;
-
-						// show down
-						ghost.setTrend(Movement.DOWN);
-						ghost.update(elapsedTime);
-						ghost.render(gc);
-						Iterator<Sprite> wallListIterGhostDown = wallList.iterator();
-						while (wallListIterGhostDown.hasNext()) {
-							Sprite currentWallGhostDown = wallListIterGhostDown.next();
-							if (ghost.intersects(currentWallGhostDown)) {
-								pointsText = "ghost wall found!";
-								down = true;
-							}
-						}
-						ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
-						// set velocity back from smiley
-
-						// show up
-						ghost.setTrend(Movement.UP);
-						ghost.update(elapsedTime);
-						ghost.render(gc);
-						Iterator<Sprite> wallListIterGhostUp = wallList.iterator();
-						while (wallListIterGhostUp.hasNext()) {
-							Sprite currentWallGhostUp = wallListIterGhostUp.next();
-							if (ghost.intersects(currentWallGhostUp)) {
-								pointsText = "ghost wall found!";
-								up = true;
-							}
-						}
-						ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
-						// set velocity back from smiley
-
-						// show right
-						ghost.setTrend(Movement.RIGHT);
-						ghost.update(elapsedTime);
-						ghost.render(gc);
-						Iterator<Sprite> wallListIterGhostRight = wallList.iterator();
-						while (wallListIterGhostRight.hasNext()) {
-							Sprite currentWallGhostRight = wallListIterGhostRight.next();
-							if (ghost.intersects(currentWallGhostRight)) {
-								pointsText = "ghost wall found!";
-								right = true;
-							}
-						}
-						ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
-						// set velocity back from smiley
-
-						// show left
-						ghost.setTrend(Movement.LEFT);
-						ghost.update(elapsedTime);
-						ghost.render(gc);
-						Iterator<Sprite> wallListIterGhostLeft = wallList.iterator();
-						while (wallListIterGhostLeft.hasNext()) {
-							Sprite currentWallGhostLeft = wallListIterGhostLeft.next();
-							if (ghost.intersects(currentWallGhostLeft)) {
-								pointsText = "ghost wall found!";
-								left = true;
-							}
-						}
-						ghost.setPosition(smiley.getPositionX(), smiley.getPositionY());
-						// set velocity back from smiley
-
-//						if (right == false) {
-//							movement = Movement.RIGHT;
-//						} else if (left == false) {
-//							movement = Movement.LEFT;
-//						} else if (down == false) {
-//							movement = Movement.DOWN;
-//						} else if (up == false) {
-//							movement = Movement.UP;
-//						}
-
-						 switch (lastMovement) {
-						 case DOWN:
-						 movement = Movement.LEFT;
-						 break;
-						 case LEFT:
-						 movement = Movement.UP;
-						 break;
-						 case RIGHT:
-						 movement = Movement.DOWN;
-						 break;
-						 case UP:
-						 movement = Movement.RIGHT;
-						 break;
-						 }
+					if (RD.intersects(currentWall)) {
+						pointsText = "RD ghost wall found!";
+						movement = Movement.LEFT;
+					} else if (RU.intersects(currentWall)) {
+						pointsText = "RU ghost wall found!";
+						movement = Movement.UP;
+					} else if (RR.intersects(currentWall)) {
+						pointsText = "RR ghost wall found!";
+						movement = Movement.DOWN;
+					} else if (RL.intersects(currentWall)) {
+						pointsText = "RL ghost wall found!";
+						movement = Movement.RIGHT;
 					}
 				}
 
+				moveGhosts(RL, RR, RD, RU, movement);
+				smiley.setTrend(movement);
+
 				smiley.update(elapsedTime);
-				ghost.update(elapsedTime);
+				RL.update(elapsedTime);
+				RR.update(elapsedTime);
+				RD.update(elapsedTime);
+				RU.update(elapsedTime);
 
 				// render
 				gc.clearRect(0, 0, X, Y);
 				smiley.render(gc);
-				ghost.render(gc);
+				// RL.render(gc);
+				// RR.render(gc);
+				// RD.render(gc);
+				// RU.render(gc);
 
 				gc.fillText(pointsText, 360, 200);
 				gc.strokeText(pointsText, 360, 200);
 
 				for (Sprite currentObj : wallList)
 					currentObj.render(gc);
+			}
+
+			private void moveGhosts(Sprite RL, Sprite RR, Sprite RD, Sprite RU, Movement movement) {
+				RL.setTrend(movement);
+				RR.setTrend(movement);
+				RD.setTrend(movement);
+				RU.setTrend(movement);
 			}
 		}.start();
 		theStage.show();

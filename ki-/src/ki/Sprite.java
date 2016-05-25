@@ -46,6 +46,25 @@ public class Sprite {
 		velocityY += y;
 	}
 
+	public void setPosition(Movement movement) {
+		switch (movement) {
+		case DOWN:
+			setPosition(0, 50);
+			break;
+		case LEFT:
+			setPosition(-50, 0);
+			break;
+		case RIGHT:
+			setPosition(50, 0);
+			break;
+		case UP:
+			setPosition(0, -50);
+			break;
+		default:
+			break;
+		}
+	}
+
 	public void setTrend(Movement movement) {
 		switch (movement) {
 		case DOWN:
@@ -59,6 +78,11 @@ public class Sprite {
 			break;
 		case UP:
 			addVelocity(0, -50);
+			break;
+		case STOP:
+			addVelocity(0, 0);
+			break;
+		default:
 			break;
 		}
 	}
