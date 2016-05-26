@@ -113,7 +113,7 @@
   <interface id="13" language="java" name="java.util.Observer" project="ki-a" 
     file="/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre/lib/rt.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="840" y="1022"/>    
+    <position height="-1" width="-1" x="840" y="932"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -171,6 +171,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <realization id="26">    
+    <bendpoint x="1133" y="196"/>    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="6"/>  
   </realization>  

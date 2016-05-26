@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.9" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+<class-diagram version="1.1.9" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <interface id="1" language="java" name="ki.cache.ICache" project="ki-a" file="/ki-a/src/ki/cache/ICache.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="191" y="65"/>    
