@@ -1,14 +1,29 @@
 package ki.solvers.impl;
 
-import ki.model.KIModel;
-import ki.solvers.IKISolver;
-import ki.solvers.Solution;
+import java.util.Observable;
 
-public class TreeSolver implements IKISolver {
+import ki.execution.ExecutionManager;
+import ki.model.IKIModel;
+import ki.solvers.IKISolver;
+import ki.solvers.solution.ISolution;
+import ki.solvers.solution.Solution;
+
+public class TreeSolver extends Observable implements IKISolver {
+
+	private ISolution currentSolution;
+
+	public TreeSolver() {
+		this.addObserver(ExecutionManager.getInstance());
+	}
 
 	@Override
-	public Solution solve(KIModel model) {
-		// TODO Auto-generated method stub
+	public ISolution solve(IKIModel model) {
+		// calculate solution
+		ISolution solution = new Solution();
+		if (check()) {
+			setCurrentSolution(solution);
+			notifyObservers(solution);
+		}
 		return null;
 	}
 
@@ -22,5 +37,13 @@ public class TreeSolver implements IKISolver {
 	public void stop() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public ISolution getCurrentSolution() {
+		return currentSolution;
+	}
+
+	public void setCurrentSolution(ISolution currentSolution) {
+		this.currentSolution = currentSolution;
 	}
 }

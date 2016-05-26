@@ -6,8 +6,12 @@ import java.util.Observer;
 
 import ki.cache.ICache;
 import ki.input.data.Data;
-import ki.model.KIModel;
+import ki.model.IKIModel;
 import ki.model.manager.ModelManager;
+import ki.solvers.IKISolver;
+import ki.solvers.impl.CSPSolver;
+import ki.solvers.impl.PredictionSolver;
+import ki.solvers.impl.TreeSolver;
 
 public class Decider implements ICache, Observer {
 
@@ -28,12 +32,23 @@ public class Decider implements ICache, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (arg instanceof List) {
-			List<Data> currentData = (List<Data>) arg;
-			KIModel model = modelManager.createModel(currentData);
-			// Logik für Entscheidung welchen Solver die Aufgabe bekommt
-		}
+		solve((List<Data>) arg);
+	}
 
+	private void solve(List<Data> dataList) {
+		if (dataList instanceof List) {
+			// Model für KI Solver erstellen
+			IKIModel model = modelManager.createModel(dataList);
+			// Logik für Entscheidung welchen Solver die Aufgabe bekommt
+
+			IKISolver csp_solver = new CSPSolver();
+			IKISolver prediction_solver = new PredictionSolver();
+			IKISolver tree_solver = new TreeSolver();
+
+			csp_solver.solve(model);
+			prediction_solver.solve(model);
+			tree_solver.solve(model);
+		}
 	}
 
 	@Override

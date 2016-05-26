@@ -1,9 +1,9 @@
-package ki.execution;
+package ki.output;
 
 import ki.cache.ICache;
 import ki.plausibility.IPlausibility;
 
-public class Executor implements ICache, IPlausibility {
+public class OutputManager implements ICache, IPlausibility {
 
 	@Override
 	public boolean check() {
@@ -28,5 +28,4 @@ public class Executor implements ICache, IPlausibility {
 		// TODO Auto-generated method stub
 
 	}
-
 }

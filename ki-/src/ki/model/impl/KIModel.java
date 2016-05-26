@@ -1,7 +1,9 @@
-package ki.model;
+package ki.model.impl;
 
-public class KIModel {
-	
+import ki.model.IKIModel;
+
+public class KIModel implements IKIModel {
+
 	private String name;
 
 	public KIModel() {

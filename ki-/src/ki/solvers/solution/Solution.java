@@ -1,8 +1,8 @@
-package ki.solvers;
+package ki.solvers.solution;
 
 import java.util.Map;
 
-public class Solution {
+public class Solution implements ISolution {
 
 	private String id;
 	private Map<String, String> solutionMap;

@@ -6,7 +6,8 @@ import java.util.Map;
 
 import ki.cache.ICache;
 import ki.input.data.Data;
-import ki.model.KIModel;
+import ki.model.IKIModel;
+import ki.model.impl.KIModel;
 import ki.plausibility.IPlausibility;
 
 public class ModelManager implements ICache, IPlausibility {
@@ -28,7 +29,7 @@ public class ModelManager implements ICache, IPlausibility {
 		return instance;
 	}
 
-	public KIModel createModel(List<Data> dataList) {
+	public IKIModel createModel(List<Data> dataList) {
 		// TODO KI erkennt z.B. für Streckenführung anhand der Neuronalen Netzen
 		// ob Roboter sich in Kurve befindet
 

@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="2" language="java" name="ki.execution.Executor" project="ki-a" file="/ki-a/src/ki/execution/Executor.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="ki.execution.ExecutionManager" project="ki-a" 
+    file="/ki-a/src/ki/execution/ExecutionManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="457" y="478"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="ki.model.KIModel" project="ki-a" file="/ki-a/src/ki/model/KIModel.java" 
+  <class id="6" language="java" name="ki.model.impl.KIModel" project="ki-a" file="/ki-a/src/ki/model/impl/KIModel.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1419" y="266"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -64,16 +64,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="ki.output.Output" project="ki-a" file="/ki-a/src/ki/output/Output.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="83" width="98" x="546" y="627"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="9" language="java" name="ki.plausibility.IPlausibility" project="ki-a" 
+  <interface id="8" language="java" name="ki.plausibility.IPlausibility" project="ki-a" 
     file="/ki-a/src/ki/plausibility/IPlausibility.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="101" width="114" x="441" y="26"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
@@ -82,7 +73,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="10" language="java" name="ki.solvers.IKISolver" project="ki-a" 
+  <interface id="9" language="java" name="ki.solvers.IKISolver" project="ki-a" 
     file="/ki-a/src/ki/solvers/IKISolver.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="83" width="114" x="-12" y="100"/>    
     <display autosize="false" stereotype="false" package="true" initial-value="false" signature="true" 
@@ -91,7 +82,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="11" language="java" name="ki.solvers.impl.CSPSolver" project="ki-a" 
+  <class id="10" language="java" name="ki.solvers.impl.CSPSolver" project="ki-a" 
     file="/ki-a/src/ki/solvers/impl/CSPSolver.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="26" y="415"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -100,7 +91,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="ki.solvers.impl.TreeSolver" project="ki-a" 
+  <class id="11" language="java" name="ki.solvers.impl.TreeSolver" project="ki-a" 
     file="/ki-a/src/ki/solvers/impl/TreeSolver.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="132" y="415"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -109,7 +100,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="ki.solvers.impl.PredictionSolver" project="ki-a" 
+  <class id="12" language="java" name="ki.solvers.impl.PredictionSolver" project="ki-a" 
     file="/ki-a/src/ki/solvers/impl/PredictionSolver.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="263" y="411"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -118,98 +109,94 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="14">    
+  <association id="13">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="15" name="instance"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="14" name="instance"/>      
+      <multiplicity id="15" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="17">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="10"/>  
+  <realization id="16">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
   </realization>  
-  <association id="18">    
+  <association id="17">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="19" name="dataList"/>      
-      <multiplicity id="20" minimum="0" maximum="2147483647"/>    
+      <attribute id="18" name="dataList"/>      
+      <multiplicity id="19" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="21">    
+  <realization id="20">    
     <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="21">    
+    <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="9"/>  
   </realization>  
-  <realization id="22">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="10"/>  
-  </realization>  
-  <association id="23">    
+  <association id="22">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="24" name="instance"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
+      <attribute id="23" name="instance"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="26">    
+  <realization id="25">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="27">    
+  <realization id="26">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <association id="28">    
+  <association id="27">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="29" name="modelMap"/>      
-      <multiplicity id="30" minimum="0" maximum="2147483647"/>    
+      <attribute id="28" name="modelMap"/>      
+      <multiplicity id="29" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="31">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="10"/>  
+  <realization id="30">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="9"/>  
   </realization>  
-  <dependency id="32">    
+  <dependency id="31">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <realization id="33">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <realization id="34">    
+  <realization id="32">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="9"/>  
+    <end type="TARGET" refId="8"/>  
   </realization>  
-  <realization id="35">    
+  <realization id="33">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="36">    
+  <realization id="34">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <realization id="37">    
+  <realization id="35">    
     <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="9"/>  
+    <end type="TARGET" refId="8"/>  
   </realization>  
-  <association id="38">    
+  <association id="36">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="39" name="instance"/>      
-      <multiplicity id="40" minimum="0" maximum="1"/>    
+      <attribute id="37" name="instance"/>      
+      <multiplicity id="38" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="41">    
+  <association id="39">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="42" name="currentModel"/>      
-      <multiplicity id="43" minimum="0" maximum="1"/>    
+      <attribute id="40" name="currentModel"/>      
+      <multiplicity id="41" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
