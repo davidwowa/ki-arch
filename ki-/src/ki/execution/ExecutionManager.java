@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ki.cache.ICache;
+import ki.output.OutputManager;
 import ki.plausibility.IPlausibility;
 import ki.solvers.solution.ISolution;
 
@@ -36,7 +37,8 @@ public class ExecutionManager implements ICache, IPlausibility, Observer {
 		setCurrentSolution((ISolution) arg);
 		if (check()) {
 			add();
-			
+			createExecution(currentSolution);
+			OutputManager.getInstance().go(currentSolution);
 		} else {
 			stop();
 		}
