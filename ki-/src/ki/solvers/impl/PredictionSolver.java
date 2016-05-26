@@ -1,12 +1,26 @@
 package ki.solvers.impl;
 
+import ki.model.KIModel;
 import ki.solvers.IKISolver;
+import ki.solvers.Solution;
 
 public class PredictionSolver implements IKISolver {
 
 	@Override
-	public void solve() {
+	public Solution solve(KIModel model) {
 		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public boolean check() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		
 	}
 }

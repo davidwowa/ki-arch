@@ -1,21 +1,28 @@
 package ki.input.manager;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Observable;
 
 import ki.cache.ICache;
+import ki.flow.Decider;
 import ki.input.data.Data;
+import ki.plausibility.IPlausibility;
 
-public class InputDataManager implements ICache {
+public class InputDataManager extends Observable implements ICache, IPlausibility {
 
 	private static InputDataManager instance;
 
 	private List<Data> dataList;
-	private List<Data> cache;
+	private Map<Long, List<Data>> cache;
 
 	private InputDataManager() {
 		setDataList(new ArrayList<>());
-		cache = new ArrayList<>();
+		cache = new HashMap<>();
+		this.addObserver(Decider.getInstance());
 	}
 
 	public static InputDataManager getInstance() {
@@ -26,13 +33,32 @@ public class InputDataManager implements ICache {
 	}
 
 	@Override
-	public void add(Data data) {
-		cache.add(data);
+	public void add() {
+		if (check()) {
+			if (countObservers() > 0) {
+				cache.put(new Date().getTime(), dataList);
+				notifyObservers(dataList);
+			}
+		} else {
+			stop();
+		}
 	}
 
 	@Override
 	public void clear() {
 		cache.clear();
+	}
+
+	@Override
+	public boolean check() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+
 	}
 
 	public List<Data> getDataList() {
@@ -41,5 +67,13 @@ public class InputDataManager implements ICache {
 
 	public void setDataList(List<Data> dataList) {
 		this.dataList = dataList;
+	}
+
+	public Map<Long, List<Data>> getCache() {
+		return cache;
+	}
+
+	public void setCache(Map<Long, List<Data>> cache) {
+		this.cache = cache;
 	}
 }

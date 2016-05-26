@@ -3,7 +3,7 @@ package ki.execution;
 import ki.cache.ICache;
 import ki.plausibility.IPlausibility;
 
-public class Executor implements ICache, IPlausibility {
+public class Execution implements ICache, IPlausibility {
 
 	@Override
 	public boolean check() {
@@ -14,19 +14,18 @@ public class Executor implements ICache, IPlausibility {
 	@Override
 	public void stop() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void add() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
-
+		
 	}
-
 }

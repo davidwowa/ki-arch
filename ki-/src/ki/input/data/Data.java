@@ -6,6 +6,7 @@ public class Data {
 	private String key;
 	private String value;
 	private int timestamp;
+	private Object object;
 
 	public Data() {
 	}
@@ -40,6 +41,14 @@ public class Data {
 
 	public void setTimestamp(int timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public Object getObject() {
+		return object;
+	}
+
+	public void setObject(Object object) {
+		this.object = object;
 	}
 
 }

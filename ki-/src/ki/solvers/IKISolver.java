@@ -1,5 +1,8 @@
 package ki.solvers;
 
-public interface IKISolver {
-	public void solve();
+import ki.model.KIModel;
+import ki.plausibility.IPlausibility;
+
+public interface IKISolver extends IPlausibility {
+	Solution solve(KIModel model);
 }
