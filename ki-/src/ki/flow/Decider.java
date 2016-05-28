@@ -2,10 +2,8 @@ package ki.flow;
 
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 
-import ki.cache.ICache;
-import ki.input.data.Data;
+import ki.input.data.IData;
 import ki.model.IKIModel;
 import ki.model.manager.ModelManager;
 import ki.solvers.IKISolver;
@@ -32,15 +30,17 @@ public class Decider implements IDecider {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		solve((List<Data>) arg);
+		decide((List<IData>) arg);
 	}
 
-	private void solve(List<Data> dataList) {
-		if (dataList instanceof List) {
+	@Override
+	public void decide(List<IData> currentData) {
+		if (currentData instanceof List) {
 			// Model für KI Solver erstellen
-			IKIModel model = modelManager.createModel(dataList);
+			IKIModel model = modelManager.createModel(currentData);
 			// Logik für Entscheidung welchen Solver die Aufgabe bekommt
 
+			// evtl. GGP ???
 			IKISolver csp_solver = new CSPSolver();
 			IKISolver prediction_solver = new PredictionSolver();
 			IKISolver tree_solver = new TreeSolver();

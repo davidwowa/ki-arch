@@ -14,6 +14,9 @@ public class ExecutionManager implements IExecutionManager {
 	private Map<String, ISolution> cache;
 	private ISolution currentSolution;
 
+	private Map<String, IExecution> excCache;
+	private IExecution currentExection;
+
 	private ExecutionManager() {
 		setCache(new HashMap<>());
 	}
@@ -27,15 +30,16 @@ public class ExecutionManager implements IExecutionManager {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		execute(arg);
+		execute((ISolution) arg);
 	}
 
-	private void execute(Object arg) {
+	@Override
+	public void execute(ISolution arg) {
 		setCurrentSolution((ISolution) arg);
+		IExecution execution = createExecution(currentSolution);
 		if (check()) {
 			add();
-			createExecution(currentSolution);
-			OutputManager.getInstance().go(currentSolution);
+			OutputManager.getInstance().go(execution);
 		} else {
 			stop();
 		}

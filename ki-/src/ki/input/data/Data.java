@@ -1,6 +1,6 @@
 package ki.input.data;
 
-public class Data {
+public class Data implements IData{
 
 	private String id;
 	private String key;

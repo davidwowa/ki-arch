@@ -3,9 +3,10 @@ package ki.output;
 import java.util.ArrayList;
 import java.util.List;
 
-import ki.solvers.solution.ISolution;
+import ki.execution.IExecution;
+import ki.singleton.ISingleton;
 
-public class OutputManager implements IOutputManager {
+public class OutputManager implements IOutputManager, ISingleton {
 
 	private static OutputManager instance;
 
@@ -24,7 +25,7 @@ public class OutputManager implements IOutputManager {
 		return instance;
 	}
 
-	public void go(ISolution solution) {
+	public void go(IExecution solution) {
 		// convert to output
 	}
 
