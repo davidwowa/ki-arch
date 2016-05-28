@@ -13,7 +13,7 @@ import ki.solvers.impl.CSPSolver;
 import ki.solvers.impl.PredictionSolver;
 import ki.solvers.impl.TreeSolver;
 
-public class Decider implements ICache, Observer {
+public class Decider implements IDecider {
 
 	private static Decider instance;
 

@@ -3,14 +3,11 @@ package ki.execution;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
-import java.util.Observer;
 
-import ki.cache.ICache;
 import ki.output.OutputManager;
-import ki.plausibility.IPlausibility;
 import ki.solvers.solution.ISolution;
 
-public class ExecutionManager implements ICache, IPlausibility, Observer {
+public class ExecutionManager implements IExecutionManager {
 
 	private static ExecutionManager instance;
 

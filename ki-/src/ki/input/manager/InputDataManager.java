@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
-import ki.cache.ICache;
 import ki.flow.Decider;
 import ki.input.data.Data;
-import ki.plausibility.IPlausibility;
 
-public class InputDataManager extends Observable implements ICache, IPlausibility {
+public class InputDataManager extends Observable implements IInputDataManager {
 
 	private static InputDataManager instance;
 

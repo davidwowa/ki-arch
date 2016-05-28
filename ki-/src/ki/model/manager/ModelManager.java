@@ -10,7 +10,7 @@ import ki.model.IKIModel;
 import ki.model.impl.KIModel;
 import ki.plausibility.IPlausibility;
 
-public class ModelManager implements ICache, IPlausibility {
+public class ModelManager implements IModelManager {
 
 	private static ModelManager instance;
 

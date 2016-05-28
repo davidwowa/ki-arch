@@ -3,11 +3,9 @@ package ki.output;
 import java.util.ArrayList;
 import java.util.List;
 
-import ki.cache.ICache;
-import ki.plausibility.IPlausibility;
 import ki.solvers.solution.ISolution;
 
-public class OutputManager implements ICache, IPlausibility {
+public class OutputManager implements IOutputManager {
 
 	private static OutputManager instance;
 
